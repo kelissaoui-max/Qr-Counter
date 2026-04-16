@@ -11,37 +11,33 @@
       margin-top: 100px;
     }
 
-    h1 {
-      font-size: 30px;
-    }
-
     .count {
       font-size: 120px;
       font-weight: bold;
       color: #00ffcc;
-      margin-top: 30px;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Nombre de visites en direct</h1>
+<h1>Compteur en direct</h1>
 <div class="count" id="count">0</div>
 
 <script>
 const API_URL = "TON_URL_APPS_SCRIPT";
 
-// mise à jour compteur
-function update() {
-  fetch(API_URL)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("count").innerText = data;
-    });
+async function update() {
+  try {
+    let res = await fetch(API_URL);
+    let text = await res.text();
+
+    document.getElementById("count").innerText = text;
+  } catch (e) {
+    document.getElementById("count").innerText = "Erreur";
+  }
 }
 
-// refresh live
 update();
 setInterval(update, 2000);
 </script>
