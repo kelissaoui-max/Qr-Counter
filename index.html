@@ -1,45 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Compteur en direct</title>
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      background: #0f172a;
-      color: white;
-      margin-top: 100px;
-    }
-
-    .count {
-      font-size: 120px;
-      font-weight: bold;
-      color: #00ffcc;
-    }
-  </style>
-</head>
-
 <body>
 
-<h1>Participants en direct</h1>
-<div class="count" id="count">0</div>
+<h1>Compteur</h1>
+<div id="count">chargement...</div>
 
 <script>
-const API_URL = "TON_LIEN_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbw3wQmHY7RBEEWIGcGigxXHrsBzowEBvulWlLGLEYFUWghaEx9btdSDVEhgnQ44DXsz/exec";
 
-// lire seulement (SANS redirection)
-async function update() {
-  try {
-    let res = await fetch(API_URL);
-    let text = await res.text();
-    document.getElementById("count").innerText = text;
-  } catch {
+fetch(API_URL)
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("count").innerText = data;
+  })
+  .catch(err => {
     document.getElementById("count").innerText = "Erreur";
-  }
-}
+    console.log(err);
+  });
 
-update();
-setInterval(update, 2000);
 </script>
 
 </body>
