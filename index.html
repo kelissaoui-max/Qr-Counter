@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Innovation Week</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      margin-top: 80px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .counter {
+      font-size: 100px;
+      font-weight: bold;
+      margin: 40px;
+      transition: transform 0.2s ease;
+    }
+
+    .pulse {
+      transform: scale(1.2);
+      color: #00ffcc;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Innovation Week</h1>
+  <div class="subtitle">Nombre de participants en direct</div>
+
+  <div id="count" class="counter">0</div>
+
+  <p>Merci pour votre participation 🙌</p>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwxd_ssGtbfioikStcIY_LLtuE55TC5jzkvwcN4iD2dIcAgqWHqtqfNRDDxlOmIJmf5/exec";
+
+// animation
+function animate() {
+  const el = document.getElementById("count");
+  el.classList.add("pulse");
+  setTimeout(() => el.classList.remove("pulse"), 200);
+}
+
+// +1 scan
+fetch(API_URL);
+
+// update compteur
+function update() {
+  fetch(API_URL)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("count").innerText = data;
+      animate();
+    });
+}
+
+// refresh live
+update();
+setInterval(update, 2000);
+
+// redirection après 4 sec
+setTimeout(() => {
+  window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSewS4ZrrCzWq6CCkAFR0xrxYDIta7SB-PBiDKDT49gLeusKaA/viewform?usp=dialog";
+}, 4000);
+
+</script>
+
+</body>
+</html>
