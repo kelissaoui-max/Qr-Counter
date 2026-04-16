@@ -21,23 +21,24 @@
 
 <body>
 
-<h1>Compteur en direct</h1>
+<h1>Participants en direct</h1>
 <div class="count" id="count">0</div>
 
 <script>
-const API_URL = "TON_URL_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbzbZuKNFC6x4xfw4Vh_y80ER1hUVND6X5MUDYAFInxw-CMsDA2TLGh4WBuYbBrV6Ei8/exec";
 
+// récupérer le compteur
 async function update() {
   try {
     let res = await fetch(API_URL);
     let text = await res.text();
-
     document.getElementById("count").innerText = text;
-  } catch (e) {
+  } catch {
     document.getElementById("count").innerText = "Erreur";
   }
 }
 
+// lancer + refresh
 update();
 setInterval(update, 2000);
 </script>
